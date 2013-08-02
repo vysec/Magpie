@@ -1,0 +1,49 @@
+<html>
+	<head>
+		<title>{{ ValuePageTitle }}</title>
+	</head>
+	<body>
+
+		<div id="submit_hash">
+			<h2>Submit</h2>
+			<form action="{{ url_for('Submit') }}" method="POST">
+				<ul>
+					<li>Hash: <input type="text" name="hash" size="64" /></li>
+					<li><input type="submit" value="Send" /></li>
+				</ul>
+			</form>
+		</div>
+
+		{% if RenderError %}
+		<div id="error_message">
+			<h4>{{ ValueErrorMessage }}</h4>
+		</div>
+		{% endif %}
+
+		{% if ValueQueueHashes %}
+		<div id="hash_queue">
+			<h2>Current queue</h2>
+			<table>
+				<tr>
+					<th>Job ID</th>
+					<th>Hash</th>
+					<th>Submitted</th>
+					<th>Status</th>
+				</tr>
+				{% for item in ValueQueueHashes %}
+				<tr>
+					<td>{{ item.JobID }}</td>
+					<td><pre>{{ item.Hash }}</pre></td>
+					<td>{{ item.Time }}</td>
+					<td>{{ item.StatusHuman }}</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+		{% endif %}
+
+		<div id="hash_finish">
+			<h2>Finished queue</h2>
+		</div>
+	</body>
+</html>
